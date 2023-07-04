@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getBooksbySearchTerm } from "../../services/book-services";
+import { getBooksBySearchTerm } from "../../services/book-services";
 import BookList from "../BookList/BookList";
 
-const BookLoader = ({ searchTerm, searchType }) => {
+const BookLoader = ({ searchTerm }) => {
 	const [books, setBooks] = useState([]);
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
@@ -11,15 +11,16 @@ const BookLoader = ({ searchTerm, searchType }) => {
 		setError(null);
 		setLoading(true);
 		setBooks([]);
-		getBooksbySearchTerm(searchTerm, searchType)
+		getBooksBySearchTerm(searchTerm)
 			.then((bookArr) => {
-				setBooks([...bookArr]);
+				console.log(bookArr);
+				setBooks(bookArr);
 			})
 			.catch((e) => {
 				setError(e);
 			})
 			.finally(() => setLoading(false));
-	}, [searchTerm, searchType]);
+	}, [searchTerm]);
 
 	return (
 		<>

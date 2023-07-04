@@ -1,27 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import style from "./BookCard.module.scss";
 
 const BookCard = ({ bookData }) => {
-	const { title, authors, imageLinks, description } = bookData;
-	const { thumbnail } = imageLinks;
+	const [showDesc, setShowDesc] = useState(false);
+	console.log("bookcard data", bookData);
+	const { title, author, image, description } = bookData;
 
-	let authorStr = "";
-	if (authors.length > 1) {
-		authorStr = authors.join(", ");
-	} else {
-		authorStr = authors.join();
-	}
+	const toggleDesc = () => {
+		setShowDesc(!showDesc);
+	};
 
 	return (
 		<>
-			<article>
-				{thumbnail && <img src={thumbnail} alt={`cover of ${title}`} />}
+			<article className={style.card}>
+				{image && <img src={image} alt={`cover of ${title}`} />}
 				<h3>{title}</h3>
-				{authors.length > 1 ? (
-					<p>Authors: {authorStr}</p>
-				) : (
-					<p>Author: {authorStr}</p>
+				<p>Author: {author}</p>
+				{description && (
+					<button onClick={toggleDesc}>
+						{showDesc ? "Hide" : "Show"} Description
+					</button>
 				)}
-				{description && <button>Show Description</button>}
+				{showDesc && <p>{description}</p>}
 			</article>
 		</>
 	);
