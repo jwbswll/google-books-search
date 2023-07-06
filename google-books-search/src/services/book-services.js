@@ -8,6 +8,12 @@ const cleanBookArr = (bookArr) => {
 			description: bookObj.volumeInfo?.description ?? undefined,
 			author: authorStr,
 			image: bookObj.volumeInfo?.imageLinks?.thumbnail ?? undefined,
+			releaseDate:
+				bookObj.volumeInfo?.publishedDate ?? "No publish date available",
+			language:
+				bookObj.volumeInfo?.language.toUpperCase() ??
+				"No language info available",
+			googleBooks: bookObj.volumeInfo?.infoLink ?? undefined,
 		};
 	});
 };
@@ -15,7 +21,7 @@ const cleanBookArr = (bookArr) => {
 export const getBooksBySearchTerm = async (searchTerm) => {
 	if (searchTerm !== "") {
 		const response = await fetch(
-			`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`,
+			`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=20`,
 			{
 				headers: {
 					Accept: "application/json",
@@ -29,6 +35,7 @@ export const getBooksBySearchTerm = async (searchTerm) => {
 		if (data.items === undefined) {
 			throw new Error(`No books containing: ${searchTerm}`);
 		}
+		console.log(data.items);
 		return cleanBookArr(data.items);
 	}
 };

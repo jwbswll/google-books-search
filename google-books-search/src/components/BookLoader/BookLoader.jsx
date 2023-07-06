@@ -1,16 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getBooksBySearchTerm } from "../../services/book-services";
 import BookList from "../BookList/BookList";
 import { ColorRing } from "react-loader-spinner";
 import style from "./BookLoader.module.scss";
 import Error from "../Error/Error";
 import SearchLabel from "./SearchLabel/SearchLabel";
+import MoreInfo from "../MoreInfo/MoreInfo";
 
 const BookLoader = ({ searchTerm }) => {
 	const [books, setBooks] = useState([]);
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
-	const count = useRef(0);
+	const [showModal, setShowModal] = useState(false);
+	const [modalIndex, setModalIndex] = useState(null);
 
 	useEffect(() => {
 		setError(null);
@@ -24,8 +26,15 @@ const BookLoader = ({ searchTerm }) => {
 				setError(e);
 			})
 			.finally(() => setLoading(false));
-		count.current += 1;
 	}, [searchTerm]);
+
+	const toggleShowModal = () => {
+		setShowModal(!showModal);
+	};
+
+	const changeModalIndex = (index) => {
+		setModalIndex(index);
+	};
 
 	return (
 		<>
@@ -46,7 +55,19 @@ const BookLoader = ({ searchTerm }) => {
 			{!loading && books && (
 				<SearchLabel booksAmount={books.length} searchTerm={searchTerm} />
 			)}
-			{!loading && books && <BookList books={books} />}
+			{!loading && books && (
+				<BookList
+					showModal={toggleShowModal}
+					setIndex={changeModalIndex}
+					books={books}
+				/>
+			)}
+			{showModal && (
+				<MoreInfo
+					showModal={toggleShowModal}
+					modalBook={{ ...books[modalIndex] }}
+				/>
+			)}
 		</>
 	);
 };
