@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import style from "./SearchInput.module.scss";
+import Button from "../Button/Button";
 
-const SearchInput = ({ handleSubmit }) => {
+const SearchInput = ({ handleSubmit, placeholder }) => {
 	const [search, setSearch] = useState("");
 
 	const onChange = (e) => {
@@ -11,14 +13,19 @@ const SearchInput = ({ handleSubmit }) => {
 		const form = document.getElementById("searchForm");
 		e.preventDefault();
 		handleSubmit(search);
-		setSearch("");
 		form.reset();
+		setSearch("");
 	};
 
 	return (
-		<form id="searchForm" onSubmit={onSubmit}>
-			<input type="text" onChange={onChange} />
-			<button>Search</button>
+		<form className={style.form} id="searchForm" onSubmit={onSubmit}>
+			<input
+				className={style.input}
+				type="text"
+				placeholder={placeholder}
+				onChange={onChange}
+			/>
+			<Button>Search</Button>
 		</form>
 	);
 };

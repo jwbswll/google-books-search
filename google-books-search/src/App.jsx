@@ -1,6 +1,9 @@
 import { useState } from "react";
 import SearchInput from "./components/SearchInput/SearchInput";
 import BookLoader from "./components/BookLoader/BookLoader";
+import Header from "./components/Header/Header";
+import "./index.scss";
+import Error from "./components/Error/Error";
 
 function App() {
 	const [searchTerm, setSearchTerm] = useState("");
@@ -15,11 +18,12 @@ function App() {
 	};
 
 	return (
-		<>
-			<SearchInput handleSubmit={handleSearch} />
+		<main>
+			<Header />
+			<SearchInput handleSubmit={handleSearch} placeholder="Search for books" />
 
-			{error ? <p>{error}</p> : <BookLoader searchTerm={searchTerm} />}
-		</>
+			{error ? <Error error={error} /> : <BookLoader searchTerm={searchTerm} />}
+		</main>
 	);
 }
 

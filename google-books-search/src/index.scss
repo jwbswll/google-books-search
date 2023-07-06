@@ -1,0 +1,5 @@
+@use "./components/variables/colors" as c;
+
+body {
+	background-color: c.$primary;
+}

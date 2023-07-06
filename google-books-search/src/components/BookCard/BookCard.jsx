@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import style from "./BookCard.module.scss";
+import Button from "../Button/Button";
 
 const BookCard = ({ bookData }) => {
 	const [showDesc, setShowDesc] = useState(false);
-	console.log("bookcard data", bookData);
 	const { title, author, image, description } = bookData;
 
 	const toggleDesc = () => {
@@ -13,15 +13,23 @@ const BookCard = ({ bookData }) => {
 	return (
 		<>
 			<article className={style.card}>
-				{image && <img src={image} alt={`cover of ${title}`} />}
-				<h3>{title}</h3>
-				<p>Author: {author}</p>
-				{description && (
-					<button onClick={toggleDesc}>
-						{showDesc ? "Hide" : "Show"} Description
-					</button>
-				)}
-				{showDesc && <p>{description}</p>}
+				<div className={style.img_container}>
+					{image ? (
+						<img src={image} className={style.img} alt={`cover of ${title}`} />
+					) : (
+						<p>No Image Available</p>
+					)}
+				</div>
+				<section className={style.text_content}>
+					<h3 className={style.title}>{title}</h3>
+					<p className={style.author}>Author: {author}</p>
+					{description && (
+						<Button btnStyle={style.btn} onClick={toggleDesc}>
+							{showDesc ? "Hide" : "Show"} Description
+						</Button>
+					)}
+					{showDesc && <p>{description}</p>}
+				</section>
 			</article>
 		</>
 	);

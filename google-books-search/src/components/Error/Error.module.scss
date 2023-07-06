@@ -1,0 +1,40 @@
+@use "../variables/colors" as c;
+
+.error_container {
+	width: 100%;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	margin-top: 50px;
+}
+
+.error {
+	height: 100px;
+	width: 300px;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	background-color: c.$danger;
+	color: white;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+	border-radius: 10px;
+	font-weight: bold;
+	animation: shake 0.2s ease-in-out 0s 3;
+}
+
+@keyframes shake {
+	0% {
+		margin-left: 0rem;
+	}
+	25% {
+		margin-left: 0.5rem;
+	}
+	75% {
+		margin-left: -0.5rem;
+	}
+	100% {
+		margin-left: 0rem;
+	}
+}
