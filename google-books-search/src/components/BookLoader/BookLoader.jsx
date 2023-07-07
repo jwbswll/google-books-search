@@ -15,6 +15,9 @@ const BookLoader = ({ searchTerm }) => {
 	const [modalIndex, setModalIndex] = useState(null);
 
 	useEffect(() => {
+		if (!searchTerm) {
+			return;
+		}
 		setError(null);
 		setBooks([]);
 		setLoading(true);
@@ -52,7 +55,7 @@ const BookLoader = ({ searchTerm }) => {
 				</div>
 			)}
 			{!loading && error && <Error error={error.message} />}
-			{!loading && books && (
+			{!loading && books.length > 0 && (
 				<SearchLabel booksAmount={books.length} searchTerm={searchTerm} />
 			)}
 			{!loading && books && (

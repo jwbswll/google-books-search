@@ -19,7 +19,13 @@ const MoreInfo = ({ modalBook, showModal }) => {
 					<CloseBtn onClick={showModal} />
 				</div>
 				<div className={style.top_container}>
-					<img className={style.img} src={image} alt={`Cover of ${title}`} />
+					{image ? (
+						<img className={style.img} src={image} alt={`Cover of ${title}`} />
+					) : (
+						<div className={style.img}>
+							<p>No Image Available</p>
+						</div>
+					)}
 					<div className={style.book_info}>
 						<h3 className={style.title}>{title}</h3>
 						<p>
@@ -28,11 +34,11 @@ const MoreInfo = ({ modalBook, showModal }) => {
 						<p>Published: {releaseDate}</p>
 						<p>Language: {language}</p>
 						<a onClick={showModal} href={googleBooks}>
-							Google Books
+							View on Google Books
 						</a>
 					</div>
 				</div>
-				<p className={style.description}>{description}</p>
+				{description && <p className={style.description}>{description}</p>}
 			</article>
 		</>
 	);

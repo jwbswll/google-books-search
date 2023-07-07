@@ -3,7 +3,7 @@ import style from "./SearchInput.module.scss";
 import Button from "../Button/Button";
 
 const SearchInput = ({ handleSubmit, placeholder }) => {
-	const [search, setSearch] = useState("");
+	const [search, setSearch] = useState(null);
 
 	const onChange = (e) => {
 		setSearch(e.target.value);
@@ -14,7 +14,7 @@ const SearchInput = ({ handleSubmit, placeholder }) => {
 		e.preventDefault();
 		handleSubmit(search);
 		form.reset();
-		setSearch("");
+		setSearch(null);
 	};
 
 	return (

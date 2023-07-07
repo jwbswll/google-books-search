@@ -19,23 +19,23 @@ const cleanBookArr = (bookArr) => {
 };
 
 export const getBooksBySearchTerm = async (searchTerm) => {
-	if (searchTerm !== "") {
-		const response = await fetch(
-			`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=20`,
-			{
-				headers: {
-					Accept: "application/json",
-				},
-			}
-		);
-		if (!response.ok) {
-			throw new Error("Failed to find books");
+	// if (searchTerm !== "") {
+	const response = await fetch(
+		`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=20`,
+		{
+			headers: {
+				Accept: "application/json",
+			},
 		}
-		const data = await response.json();
-		if (data.items === undefined) {
-			throw new Error(`No books containing: ${searchTerm}`);
-		}
-		console.log(data.items);
-		return cleanBookArr(data.items);
+	);
+	if (!response.ok) {
+		throw new Error("Failed to find books");
 	}
+	const data = await response.json();
+	if (data.items === undefined) {
+		throw new Error(`No books containing: ${searchTerm}`);
+	}
+	console.log(data.items);
+	return cleanBookArr(data.items);
+	// }
 };

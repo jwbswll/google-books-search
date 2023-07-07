@@ -6,12 +6,12 @@ import "./index.scss";
 import Error from "./components/Error/Error";
 
 function App() {
-	const [searchTerm, setSearchTerm] = useState("");
+	const [searchTerm, setSearchTerm] = useState(null);
 	const [error, setError] = useState(null);
 
 	const handleSearch = (searchValue) => {
 		setError(null);
-		if (searchValue === "") {
+		if (searchValue === null) {
 			setError("Please enter search terms");
 		}
 		setSearchTerm(searchValue);
