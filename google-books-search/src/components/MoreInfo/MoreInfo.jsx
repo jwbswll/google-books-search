@@ -33,7 +33,7 @@ const MoreInfo = ({ modalBook, showModal }) => {
 						</p>
 						<p>Published: {releaseDate}</p>
 						<p>Language: {language}</p>
-						<a onClick={showModal} href={googleBooks}>
+						<a href={googleBooks} target="_blank">
 							View on Google Books
 						</a>
 					</div>
