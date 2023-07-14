@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CloseBtn from "../CloseBtn/CloseBtn";
 import style from "./MoreInfo.module.scss";
 const MoreInfo = ({ modalBook, showModal }) => {
+	const [modalShown, setModalShown] = useState(true);
 	const {
 		title,
 		author,
@@ -11,6 +12,21 @@ const MoreInfo = ({ modalBook, showModal }) => {
 		googleBooks,
 		releaseDate,
 	} = modalBook;
+
+	useEffect(() => {
+		if (!modalShown) {
+			return;
+		}
+		const escapeListen = (e) => {
+			if (e.key === "Escape") {
+				showModal();
+				setModalShown(false);
+				console.log("escape pressed");
+			}
+		};
+		window.addEventListener("keydown", escapeListen);
+		return () => window.removeEventListener("keydown", escapeListen);
+	}, []);
 	return (
 		<>
 			<div className={style.overlay} onClick={showModal}></div>

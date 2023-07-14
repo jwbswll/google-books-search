@@ -19,7 +19,6 @@ const cleanBookArr = (bookArr) => {
 };
 
 export const getBooksBySearchTerm = async (searchTerm) => {
-	// if (searchTerm !== "") {
 	const response = await fetch(
 		`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=20`,
 		{
@@ -35,7 +34,6 @@ export const getBooksBySearchTerm = async (searchTerm) => {
 	if (data.items === undefined) {
 		throw new Error(`No books containing: ${searchTerm}`);
 	}
-	console.log(data.items);
 	return cleanBookArr(data.items);
 	// }
 };
